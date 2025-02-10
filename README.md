@@ -23,8 +23,6 @@ Here's an example:
 name: 🏗️ Build
 on:
   push:
-    # Release on semantic version tag.
-    tags: ['v[0-9]+.[0-9]+.[0-9]+']
 jobs:
   platform:
     name: 📋 List Supported Platforms
