@@ -35,12 +35,13 @@ jobs:
         id: list
         uses: ./
         with:
-          first-class-only: true
+          exclude-arch: wasm 386
 
   build:
     name: Build ${{ matrix.go.emoji }} ${{ matrix.go.GOOS }}/${{ matrix.go.GOARCH }}
     needs: list
     runs-on: ubuntu-latest
+    continue-on-error: ${{ !matrix.go.FirstClass }}
     strategy:
       matrix:
         go: ${{ fromJson(needs.list.outputs.platforms) }}
