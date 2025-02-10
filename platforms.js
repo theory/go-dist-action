@@ -1,8 +1,8 @@
 const { exec } = require('child_process')
 const EXCLUDE_OS = process.env.EXCLUDE_OS
 const EXCLUDE_ARCH = process.env.EXCLUDE_ARCH
-const FIRST_CLASS_ONY = new Boolean(process.env.FIRST_CLASS_ONY)
-const WITH_CGO_ONLY = new Boolean(process.env.WITH_CGO_ONLY)
+const FIRST_CLASS_ONLY = Boolean(process.env.FIRST_CLASS_ONLY)
+const WITH_CGO_ONLY = Boolean(process.env.WITH_CGO_ONLY)
 
 const emojiFor = {
     "aix":       "🟢",
@@ -31,7 +31,7 @@ exec('go tool dist list -json', (err, stdout, stderr) => {
     plats = []
     list = JSON.parse(stdout);
     for(const platform of list) {
-        if (FIRST_CLASS_ONY && !platform.FirstClass) {
+        if (FIRST_CLASS_ONLY && !platform.FirstClass) {
             continue
         }
         if (WITH_CGO_ONLY && !platform.CgoSupported) {
