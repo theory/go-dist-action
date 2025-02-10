@@ -41,7 +41,6 @@ jobs:
     name: Build ${{ matrix.go.emoji }} ${{ matrix.go.GOOS }}/${{ matrix.go.GOARCH }}
     needs: list
     runs-on: ubuntu-latest
-    continue-on-error: ${{ !matrix.go.FirstClass }}
     strategy:
       matrix:
         go: ${{ fromJson(needs.list.outputs.platforms) }}
@@ -56,3 +55,4 @@ jobs:
         with: { go-version-file: go.mod }
       - name: Build
         run: go build -o my_app-${{ matrix.go.GOOS }}-${{ matrix.go.GOARCH }} cmd/my_app.go
+        continue-on-error: ${{ !matrix.go.FirstClass }}
