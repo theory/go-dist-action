@@ -1,0 +1,23 @@
+name: 🧪 Test
+on:
+  push:
+jobs:
+  test:
+    strategy:
+      matrix:
+        os: [[🐧, Ubuntu], [🍎, macOS], [🪟, Windows]]
+    name: ${{ matrix.os[0] }} Test ${{ matrix.os[1] }}
+    runs-on: ${{ matrix.os[1] }}-latest
+    steps:
+      - name: Check out the repo
+        uses: actions/checkout@v4
+      - name: Setup Go
+        uses: actions/setup-go@v5
+        with: { go-version: '1.23' }
+      - name: Generate Platform List
+        id: list
+        uses: ./
+        with:
+          first-class-only: true
+      - name: Show Result
+        run: echo '${{ steps.list.outputs.platforms }}'

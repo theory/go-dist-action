@@ -1,0 +1,38 @@
+name: Go OS and Architecture List
+author: "David E. Wheeler <david@justatheory.com>"
+branding:
+  icon: align-left
+  color: gray-dark
+description: |
+  Generate a complete list of OSes and architectures supported by Go.
+  Formatted similarly to the output of `go tool dist list -json` but with an
+  added `emoji` property containing an OS-relevant emoji.
+inputs:
+  exclude-os:
+    description: Space-delimited list of OSes to exclude.
+    required: false
+  exclude-arch:
+    description: Space-delimited list of architectures to exclude.
+    required: false
+  first-class-only:
+    description: Set to true to list only [first-class ports](https://go.dev/wiki/PortingPolicy#first-class-ports).
+    required: false
+  with-cgo-only:
+    description: Set to true to list only [cgo-enabled ports](https://pkg.go.dev/cmd/cgo).
+    required: false
+outputs:
+  platforms:
+    description: JSON array of Go supported platform objects
+    value: ${{ steps.list.outputs.platforms }}
+runs:
+  using: composite
+  steps:
+    - id: list
+      name: List ports
+      run: set -ex; printf "platforms=%s\n" "$(node $GITHUB_ACTION_PATH/platforms.js)" >> $GITHUB_OUTPUT
+      shell: bash
+      env:
+        EXCLUDE_OS: ${{ inputs.exclude-os }}
+        EXCLUDE_ARCH: ${{ inputs.exclude-arch }}
+        FIRST_CLASS_ONY: ${{ inputs.first-class-only }}
+        WITH_CGO_ONLY: ${{ inputs.with-cgo-only }}
