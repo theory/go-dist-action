@@ -5,7 +5,7 @@
 This action creates a JSON array of Go-supported platform objects. The output
 of `go tool dist list -json` generates the initial list, but various inputs
 allow for the winnowing of the list. The action also adds an OS-relevant emoji
-to each object. An example:
+and GitHub runner to each object. An example:
 
 ``` json
   {
@@ -13,6 +13,7 @@ to each object. An example:
     "GOARCH": "arm64",
     "CgoSupported": true,
     "FirstClass": true,
+    "runner": "ubuntu",
     "emoji": "🐧"
   }
 ```

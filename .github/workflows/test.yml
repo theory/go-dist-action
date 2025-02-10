@@ -38,9 +38,9 @@ jobs:
           exclude-arch: wasm 386
 
   build:
-    name: Build ${{ matrix.go.emoji }} ${{ matrix.go.GOOS }}/${{ matrix.go.GOARCH }}
+    name: ${{ matrix.go.emoji }} Build ${{ matrix.go.GOOS }}/${{ matrix.go.GOARCH }}
     needs: list
-    runs-on: ubuntu-latest
+    runs-on: ${{ matrix.go.runner }}-latest
     strategy:
       matrix:
         go: ${{ fromJson(needs.list.outputs.platforms) }}

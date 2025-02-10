@@ -22,6 +22,12 @@ const emojiFor = {
     "windows":   "🪟",
 }
 
+const runnerFor = {
+    "darwin":  "macos",
+    "ios":     "macos",
+    "windows": "windows",
+}
+
 exec('go tool dist list -json', (err, stdout, stderr) => {
     if (err) {
         console.log(err.message)
@@ -43,8 +49,10 @@ exec('go tool dist list -json', (err, stdout, stderr) => {
         if ((new RegExp(`\\b${platform.GOARCH}\\b`)).test(EXCLUDE_ARCH)) {
             continue
         }
+        platform["runner"] = runnerFor[platform.GOOS] || "ubuntu"
         platform["emoji"] = emojiFor[platform.GOOS] || "⁉️"
         plats.push(platform)
     }
     console.log(JSON.stringify(plats))
 });
+
