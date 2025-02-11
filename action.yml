@@ -1,12 +1,9 @@
 name: List Go Platforms
 author: "David E. Wheeler <david@justatheory.com>"
 branding:
-  icon: align-left
-  color: gray-dark
-description: |
-  Generate a complete list of OSes and architectures supported by Go.
-  Formatted similarly to the output of `go tool dist list -json` but with an
-  added `emoji` property containing an OS-relevant emoji.
+  icon: target
+  color: red
+description: Generate a complete list of OSes and architectures supported by Go.
 inputs:
   exclude-os:
     description: Space-delimited list of OSes to exclude.
