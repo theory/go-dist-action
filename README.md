@@ -1,4 +1,4 @@
-# GitHub Action to Extract Release Notes from a Changelog
+# GitHub Action to List Go Platforms
 
 [![⚖️ MIT]][mit] [![🎬 Action]][action] [![🧪 Test]][ci]
 
@@ -25,7 +25,7 @@ jobs:
       - name: Setup Go
         uses: actions/setup-go@v5
         with: { go-version-file: go.mod }
-      - name: List First Class Platforms
+      - name: List Platforms
         id: list
         uses: theory/go-dist-action@v0
         with:
@@ -52,17 +52,17 @@ jobs:
         continue-on-error: ${{ !matrix.go.FirstClass }}
 ```
 
-The first job, `list`, uses the action to generate a list of Go-supported
+The first job, `list`, uses the action to output a list of Go-supported
 platforms, excluding the `wasm` and `386` architectures. Note that it first
-installs the version of Go relevant to the project. It maps the action output
-to the job output. This jog runs on an Ubuntu runner, but it should work
-equally well on any runner that supports Go.
+installs the version of Go relevant to the project. The `outputs` section maps
+the action output to the job output named `platforms`. This job runs on an
+Ubuntu runner, but it should work equally well on any runner that supports Go.
 
 The second job, `build`, depends on the `list` job, and parses its output into
 the `go` matrix value. With the matrix set, it customizes the build name and
 GitHub runner and sets the `GOOS` and `GOARCH` environment variables, which
-determine the platform `go build` compiles the binary for. The `Build` step
-also sets `continue-on-error` to `true` for non-[first-class][first]
+determine the platform for which `go build` compiles the binary. The `Build`
+step also sets `continue-on-error` to `true` for non-[first-class][first]
 platforms. This ensures that all first class platforms must compile without
 error, but ignores errors from non-first class platform builds.
 
@@ -115,7 +115,7 @@ Example:
   [ci]: https://github.com/theory/go-dist-action/actions/workflows/test.yml
     "🧪 Test Status"
   [🎬 Action]: https://img.shields.io/badge/Marketplace-Action-orange.svg "[🎬 Marketplace Action]"
-  [action]: https://github.com/marketplace/actions/extract-changelog-release-notes "[🎬 Marketplace Action]"
+  [action]: https://github.com/marketplace/actions/list-go-platforms "[🎬 Marketplace Action]"
   [first]: https://go.dev/wiki/PortingPolicy#first-class-ports
     "Go Porting Policy: First Class Ports"
   [cgo]: https://pkg.go.dev/cmd/cgo "Go Packages: cgo command"
