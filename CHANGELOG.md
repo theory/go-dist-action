@@ -7,16 +7,17 @@ All notable changes to this project will be documented in this file. It uses the
   [Semantic Versioning]: https://semver.org/spec/v2.0.0.html
     "Semantic Versioning 2.0.0"
 
-## [v0.1.0] — 2024-09-07
+## [v0.1.0] — 2025-01-11
 
 The theme of this release is *Scratching my own itch.*
 
 ### ⚡ Improvements
 
 *   First release
-*   Extracts the the list of distributions output by `go tool dist list -json`,
+*   Extracts the the list of platforms output by `go tool dist list -json`,
     tweaks them according to inputs
-*   Adds an OS-relevant emoji value to each item in the list.
+*   Adds an OS-relevant emoji value to each platform in the list
+*   Adds a GitHub runner OS string to each platform in the list
 
 ### 🏗️ Build Setup
 

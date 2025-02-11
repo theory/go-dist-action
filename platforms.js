@@ -55,4 +55,3 @@ exec('go tool dist list -json', (err, stdout, stderr) => {
     }
     console.log(JSON.stringify(plats))
 });
-
